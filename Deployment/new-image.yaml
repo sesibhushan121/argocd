@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd-image-updater.argoproj.io/image-list: gcr.io/heptio-images/nginx
+    argocd-image-updater.argoproj.io/image-list: nginx
   name: nginx
   namespace: argocd
 spec:
