@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: gcr.io/heptio-images/nginx
+  name: nginx
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: Deployment
+    repoURL: https://github.com/sesibhushan121/argocd
+    targetRevision: HEAD
