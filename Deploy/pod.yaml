@@ -20,7 +20,7 @@ spec:
            maxSurge: 25%
            maxUnavailable: 25% 
       containers:
-      - image: nginx:latest
+      - image: sesibhushan121/nginx:latest
         name: nginx-image
       
 ---
