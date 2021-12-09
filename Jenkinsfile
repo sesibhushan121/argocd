@@ -34,7 +34,8 @@ volumes: [
     stage('Run kubectl') {
       container('kubectl') {
         sh """
-        kubectl get pods
+        cd Deploy
+        kubectl apply -f .
         pwd
         ls
         """
