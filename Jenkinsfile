@@ -14,11 +14,7 @@ volumes: [
     def gitBranch = myRepo.GIT_BRANCH
     def shortGitCommit = "${gitCommit[0..10]}"
  
-    stage('Build') {
-      container('gradle') {
-        sh "gradle build"
-      }
-    }
+
     stage('Create Docker images') {
       container('docker') {
         withCredentials([[$class: 'UsernamePasswordMultiBinding',
