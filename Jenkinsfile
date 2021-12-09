@@ -13,7 +13,6 @@ volumes: [
     def gitCommit = myRepo.GIT_COMMIT
     def gitBranch = myRepo.GIT_BRANCH
     def shortGitCommit = "${gitCommit[0..10]}"
-    def previousGitCommit = sh(script: "git rev-parse ${gitCommit}~", returnStdout: true)
  
     stage('Build') {
       container('gradle') {
