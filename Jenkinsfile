@@ -36,6 +36,8 @@ volumes: [
         sh """
         cd Deploy
         kubectl apply -f .
+        kubectl get po 
+        kubectl get svc
         pwd
         ls
         """
