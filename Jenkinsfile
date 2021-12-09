@@ -29,9 +29,8 @@ volumes: [
           sh """
            pwd
            ls
-            docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWORD}
-            docker build -t namespace/my-image:${gitCommit} .
-            docker push namespace/my-image:${gitCommit}
+            docker login -u sesibhushan121 -p sesi2020
+            docker ps
             """
         }
       }
