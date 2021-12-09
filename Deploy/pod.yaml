@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-image
+  name: nginx-image
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-image
+  template:
+    metadata:
+      labels:
+        app: nginx-image
+    spec:
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+           maxSurge: 25%
+           maxUnavailable: 25% 
+      containers:
+      - image: nginx:latest
+        name: nginx-image
+      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx-image
+  name: nginx-svc
+spec:
+  ports:
+  - name: nginx-svc
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx-image
+  type: NodePort
