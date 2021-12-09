@@ -36,6 +36,7 @@ volumes: [
         sh """
         cd Deploy
         kubectl apply -f .
+        kubectl rollout restart deployment nginx-image
         kubectl get po 
         kubectl get svc
         pwd
