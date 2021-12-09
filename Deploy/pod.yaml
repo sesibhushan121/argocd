@@ -14,14 +14,10 @@ spec:
       labels:
         app: nginx-image
     spec:
-      strategy:
-        type: RollingUpdate
-        rollingUpdate:
-           maxSurge: 25%
-           maxUnavailable: 25% 
       containers:
       - image: sesibhushan121/nginx:latest
         name: nginx-image
+        imagePullPolicy: Always
       
 ---
 apiVersion: v1
