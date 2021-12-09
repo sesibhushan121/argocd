@@ -22,6 +22,7 @@ volumes: [
                           usernameVariable: 'DOCKER_HUB_USER',
                           passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
                           sh """
+                          cd Deploy
                           docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWORD}
                           docker build -f Dockerfile -t nginx:latest .
                           docker tag nginx:latest sesibhushan121/nginx:latest
