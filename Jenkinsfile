@@ -56,7 +56,11 @@ volumes: [
     }
     stage('Run kubectl') {
       container('kubectl') {
-        sh "kubectl get pods"
+        sh """
+        kubectl get pods
+        pwd
+        ls
+        """
       }
     }
     stage('Run helm') {
