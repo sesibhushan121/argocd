@@ -6,7 +6,7 @@ pipeline {
     }
     
     stages {       
-        stage('Prepare') {
+        /*stage('Prepare') {
             steps {
                 checkout([$class: 'GitSCM',
                 branches: [[name: "origin\main"]],
@@ -16,7 +16,7 @@ pipeline {
                     url: 'ssh:\\git@git.example.com\argocd-test\argocd-test.git']]
                 ])
             }
-        }
+        }*/
         stage ('Docker_Build') {
             steps {
                 \\ Build the docker image
