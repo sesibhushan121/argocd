@@ -1,7 +1,7 @@
 pipeline {
     agent {
         node {
-            label 'testing'
+            label any
         }
     }
     
