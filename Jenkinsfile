@@ -22,13 +22,16 @@ pipeline {
                 \\ Build the docker image
                 sh'''
                     # Build the image
-                    $(aws ecr get-login --region eu-west-1 --profile global --no-include-email)
-                    docker build . -t k8s-debian-test
-                '''
+                    
+                          docker login -u sesibhushan121 -p sesi2020
+                          docker build -f Dockerfile -t nginx:latest .
+                          docker tag nginx:latest sesibhushan121/nginx:latest
+                          docker push sesibhushan121/nginx:latest
+                '''       
             }
         }
         
-        stage ('Deploy_K8S') {
+    /*    stage ('Deploy_K8S') {
              steps {
                      withCredentials([string(credentialsId: "jenkins-argocd-deploy", variable: 'ARGOCD_AUTH_TOKEN')]) {
                         sh '''
@@ -54,6 +57,6 @@ pipeline {
                         '''
                }
             }
-        }
+        }*/
     }
 }
