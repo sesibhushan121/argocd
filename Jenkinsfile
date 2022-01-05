@@ -9,7 +9,7 @@ pipeline {
         stage('Prepare') {
             steps {
                 checkout([$class: 'GitSCM',
-                branches: [[name: "origin\master"]],
+                branches: [[name: "origin\main"]],
                 doGenerateSubmoduleConfigurations: false,
                 submoduleCfg: [],
                 userRemoteConfigs: [[
