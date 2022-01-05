@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        node {
-            label any
-        }
-    }
+    agent any
     
     stages {       
         /*stage('Prepare') {
