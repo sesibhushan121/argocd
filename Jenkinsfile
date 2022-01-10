@@ -27,7 +27,7 @@ pipeline {
             }
         }
         
-    /*    stage ('Deploy_K8S') {
+        /*    stage ('Deploy_K8S') {
              steps {
                      withCredentials([string(credentialsId: "jenkins-argocd-deploy", variable: 'ARGOCD_AUTH_TOKEN')]) {
                         sh '''
