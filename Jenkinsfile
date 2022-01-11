@@ -16,7 +16,7 @@ pipeline {
         stage ('Docker_Build') {
             steps {
                
-                    # Build the image
+                   
                 sh'''
                     
                     
