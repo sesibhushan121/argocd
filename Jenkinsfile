@@ -15,9 +15,10 @@ pipeline {
         }*/
         stage ('Docker_Build') {
             steps {
-
-                sh'''
+               
                     # Build the image
+                sh'''
+                    
                     
                           docker login -u sesibhushan121 -p sesi2020
                           docker build -f Dockerfile -t nginx:latest .
