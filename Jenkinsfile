@@ -13,20 +13,24 @@ pipeline {
                 ])
             }
         }*/
-        stage ('Docker_Build') {
-            steps {
-               
-                   
-                sh'''
-                    
-                    
-                          docker login -u sesibhushan121 -p sesi2020
-                          docker build -f Dockerfile -t nginx:latest .
-                          docker tag nginx:latest sesibhushan121/nginx:latest
-                          docker push sesibhushan121/nginx:latest
-                '''       
+        stages {
+         stage('Build Docker image') { 
+             steps {
+                    sh """
+                     docker build -f Dockerfile -t nginx:latest .
+                     docker tag nginx:latest sesibhushan121/nginx:latest
+                    """
+                 
+                
             }
         }
+       stage('Pushing images to Docker'){
+            steps {
+                container('docker') {
+                        sh 'docker login -u sesibhushan121 -p sesi2020'
+                        sh 'docker push sesibhushan121/nginx:latest'
+                }
+            }
         
         /*    stage ('Deploy_K8S') {
              steps {
