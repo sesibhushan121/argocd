@@ -12,16 +12,13 @@ pipeline {
                 ])
             }
         }*/
-        stage ('Docker_Build') {
-            steps {
-                sh'''
-                          docker login -u sesibhushan121 -p sesi2020
-                          docker build -f Dockerfile -t nginx:latest .
-                          docker tag nginx:latest sesibhushan121/nginx:latest
-                          docker push sesibhushan121/nginx:latest
-                '''
-            }
-        }
+        stage('Build Docker image') { 
+             steps { 
+                 sh 'cd $WORKSPACE'
+                 sh 'docker build -f Dockerfile -t nginx:latest .'
+                 sh 'docker tag nginx:latest http://localhost:4000/my_project/nginx:latest'
+             }
+         }
         /*    stage ('Deploy_K8S') {
              steps {
                      withCredentials([string(credentialsId: "jenkins-argocd-deploy", variable: 'ARGOCD_AUTH_TOKEN')]) {
