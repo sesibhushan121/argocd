@@ -19,6 +19,7 @@ pipeline {
                  sh 'docker tag nginx:latest http://localhost:4000/my_project/nginx:latest'
              }
          }
+      
         /*    stage ('Deploy_K8S') {
              steps {
                      withCredentials([string(credentialsId: "jenkins-argocd-deploy", variable: 'ARGOCD_AUTH_TOKEN')]) {
