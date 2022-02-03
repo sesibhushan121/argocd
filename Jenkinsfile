@@ -12,12 +12,24 @@ pipeline {
                 ])
             }
         }*/
-        stage('Build Docker image') { 
-             steps { 
-                 sh 'cd $WORKSPACE'
-                 sh 'docker build -f Dockerfile -t nginx:latest .'
-                 sh 'docker tag nginx:latest http://localhost:4000/my_project/nginx:latest'
-             }
+         stages {
+           stage('Build Docker image') { 
+             steps {
+                    sh """
+                     docker build -f Dockerfile -t nginx:latest .
+                     docker tag nginx:latest sesibhushan121/nginx:latest
+                    """
+                 
+                
+            }
+        }
+       stage('Pushing images to Docker'){
+            steps {
+                container('docker') {
+                        sh 'docker login -u sesibhushan121 -p sesi2020'
+                        sh 'docker push sesibhushan121/nginx:latest'
+                }
+            }
          }
       
         /*    stage ('Deploy_K8S') {
