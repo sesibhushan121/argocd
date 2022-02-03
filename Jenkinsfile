@@ -1,19 +1,12 @@
-pipeline {
+properties([pipelineTriggers([githubPush()])])
+
+pipeline { 
     agent any
+    podTemplate(cloud: 'kubernetes', containers: [containerTemplate(alwaysPullImage: true, args: '9999999', command: 'sleep', image: 'sesibhushan121/nginx', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'nginx', resourceLimitCpu: '', resourceLimitEphemeralStorage: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestEphemeralStorage: '', resourceRequestMemory: '')], name: 'nginx') {
+    // some block
+}
     stages {
-        /*stage('Prepare') {
-            steps {
-                checkout([$class: 'GitSCM',
-                branches: [[name: "origin\main"]],
-                doGenerateSubmoduleConfigurations: false,
-                submoduleCfg: [],
-                userRemoteConfigs: [[
-                    url: 'ssh:\\git@git.example.com\argocd-test\argocd-test.git']]
-                ])
-            }
-        }*/
-         stages {
-           stage('Build Docker image') { 
+         stage('Build Docker image') { 
              steps {
                     sh """
                      docker build -f Dockerfile -t nginx:latest .
@@ -30,31 +23,16 @@ pipeline {
                         sh 'docker push sesibhushan121/nginx:latest'
                 }
             }
-         }
-      
-        /*    stage ('Deploy_K8S') {
-             steps {
-                     withCredentials([string(credentialsId: "jenkins-argocd-deploy", variable: 'ARGOCD_AUTH_TOKEN')]) {
-                        sh '''
-                        ARGOCD_SERVER="argocd-prod.example.com"
-                        APP_NAME="debian-test-k8s"
-                        CONTAINER="k8s-debian-test"
-                        REGION="eu-west-1"
-                        AWS_ACCOUNT="$ACCOUNT_NUMBER"
-                        AWS_ENVIRONMENT="staging"
-                        $(aws ecr get-login --region $REGION --profile $AWS_ENVIRONMENT --no-include-email)
-                        # Deploy image to ECR
-                        docker tag $CONTAINER:latest $AWS_ACCOUNT.dkr.ecr.$REGION.amazonaws.com\$CONTAINER:latest
-                        docker push $AWS_ACCOUNT.dkr.ecr.$REGION.amazonaws.com\$CONTAINER:latest
-                        IMAGE_DIGEST=$(docker image  $AWS_ACCOUNT.dkr.ecr.$REGION.amazonaws.com\$CONTAINER:latest -f '{{join .RepoDigests ","}}')
-                        # Customize image
-                        ARGOCD_SERVER=$ARGOCD_SERVER argocd --grpc-web app set $APP_NAME --kustomize-image $IMAGE_DIGEST
-                        # Deploy to ArgoCD
-                        ARGOCD_SERVER=$ARGOCD_SERVER argocd --grpc-web app sync $APP_NAME --force
-                        ARGOCD_SERVER=$ARGOCD_SERVER argocd --grpc-web app wait $APP_NAME --timeout 600
-                        '''
-               }
+        }
+        stage('Deploy on ' ) {
+            steps {
+                
+                sh '''
+                kubectl apply -f Deployment/image-update.yaml 
+                
+                '''
+                
+                
             }
-        }*/
+        }
     }
-}
